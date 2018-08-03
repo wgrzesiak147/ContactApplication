@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using Microsoft.Build.Framework;
 
-namespace ContactApplication.Models
+namespace ContactApplication.DB.Model
 {
     public class Contact
     {

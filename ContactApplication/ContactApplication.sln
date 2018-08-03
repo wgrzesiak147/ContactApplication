@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApplication.WebApi",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApplication.Application", "ContactApplication.Application\ContactApplication.Application.csproj", "{99B9E0CD-5C85-47F4-A557-AC732D14E979}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApplication.Database", "ContactApplication.Database\ContactApplication.Database.csproj", "{175B7A26-65E6-46DC-A575-7C6F52F142D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{99B9E0CD-5C85-47F4-A557-AC732D14E979}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99B9E0CD-5C85-47F4-A557-AC732D14E979}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99B9E0CD-5C85-47F4-A557-AC732D14E979}.Release|Any CPU.Build.0 = Release|Any CPU
+		{175B7A26-65E6-46DC-A575-7C6F52F142D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{175B7A26-65E6-46DC-A575-7C6F52F142D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{175B7A26-65E6-46DC-A575-7C6F52F142D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{175B7A26-65E6-46DC-A575-7C6F52F142D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
