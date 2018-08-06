@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactApplication.Application"
+        xmlns:viewModels="clr-namespace:ContactApplication.Application.ViewModels"
+        xmlns:views="clr-namespace:ContactApplication.Application.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="500" WindowStartupLocation="CenterScreen" SizeToContent="Width">
     <Grid>
-        
+        <Frame Grid.Column="1" Content="{Binding NavigationController.CurrentPage}" HorizontalAlignment="Left" VerticalAlignment="Top" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

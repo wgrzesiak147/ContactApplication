@@ -1,0 +1,33 @@
+﻿<Page x:Class="ContactApplication.Application.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ContactApplication.Application.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="MainPage">
+
+    <Grid>
+        <StackPanel Orientation="Vertical" VerticalAlignment="top" HorizontalAlignment="Stretch">
+            <Grid Height="auto">
+                <DataGrid IsReadOnly="True" Margin="20" HorizontalAlignment="Center" AutoGenerateColumns="False" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact}" MaxHeight="100">
+                    <DataGrid.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditCommand}"></MouseBinding>
+                    </DataGrid.InputBindings>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+                        <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+                        <DataGridTextColumn Header="Date Of Birth" Binding="{Binding DateOfBirth}"/>
+                        <DataGridTextColumn Header="Emails" Binding="{Binding EmailString}"/>
+                        <DataGridTextColumn Header="Phone Numbers" Binding="{Binding PhoneString}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <Button Content="Load" Command="{Binding LoadContactsCommand}"></Button>
+            <Button Content="Add" Command="{Binding AddContactCommand}"></Button>
+            <Button Content="Edit" Command="{Binding EditContactCommand}"></Button>
+            <Button Content="Remove" Command="{Binding RemoveContactCommand}"></Button>
+        </StackPanel>
+    </Grid>
+</Page>

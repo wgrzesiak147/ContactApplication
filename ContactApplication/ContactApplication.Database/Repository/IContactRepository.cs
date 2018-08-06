@@ -9,6 +9,6 @@ namespace ContactApplication.Database.Repository
 
         void AddContact(Contact contact);
 
-        void RemeveContact(Contact contact);
+        void RemoveContact(Contact contact);
     }
 }

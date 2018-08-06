@@ -1,5 +1,5 @@
 using System.Web.Http;
-using ContactApplication.Services;
+using ContactApplication.Database.Repository;
 using Unity;
 using Unity.WebApi;
 
@@ -13,10 +13,8 @@ namespace ContactApplication
             
             // register all your components with the container here
             // it is NOT necessary to register your controllers
-            
-            // e.g. container.RegisterType<ITestService, TestService>();
 
-            container.RegisterType<IExampleService, ExampleService>();
+            container.RegisterType<IContactRepository, ContactRepository>();
             
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

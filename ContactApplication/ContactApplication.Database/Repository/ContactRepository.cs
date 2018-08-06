@@ -19,7 +19,7 @@ namespace ContactApplication.Database.Repository
             _dbContext.SaveChanges();
         }
 
-        public void RemeveContact(Contact contact)
+        public void RemoveContact(Contact contact)
         {
             _dbContext.Contacts.Remove(contact);
             _dbContext.SaveChanges();

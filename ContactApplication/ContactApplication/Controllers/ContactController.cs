@@ -4,34 +4,46 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using ContactApplication.Services;
+using ContactApplication.Database.Model;
+using ContactApplication.Database.Repository;
+using ContactApplication.Interfaces.Model;
 
 namespace ContactApplication.Controllers
 {
     public class ContactController : ApiController
     {
-        private IExampleService _exampleService { get; set; }
+        private IContactRepository _contactRepository { get; set; }
 
-        public ContactController(IExampleService exampleService)
+        public ContactController(IContactRepository contactRepository)
         {
-            _exampleService = exampleService;
+            _contactRepository = contactRepository;
         }
 
+        [HttpGet]
         // GET api/<controller>
-        public IEnumerable<string> Get()
+        public IEnumerable<ContactDto> Get()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value";
+            return _contactRepository.GetContacts().Select(c => new ContactDto()
+            {
+                FirstName = c.FirstName,
+                LastName = c.LastName,
+                DateOfBirth = c.DateOfBirth,
+                ListOfPhoneNumbers = c.ListOfPhoneNumbers?.ToList(),
+                ListOfEmails = c.ListOfEmails?.ToList(),
+            });
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public void Post([FromBody]ContactDto contact)
         {
+            _contactRepository.AddContact(new Contact()
+            {
+                FirstName = contact.FirstName,
+                LastName = contact.LastName,
+                DateOfBirth = contact.DateOfBirth,
+                ListOfPhoneNumbers = contact.ListOfPhoneNumbers?.ToList(),
+                ListOfEmails = contact.ListOfEmails?.ToList(),
+            });
         }
 
         // PUT api/<controller>/5
@@ -40,8 +52,9 @@ namespace ContactApplication.Controllers
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public void Delete(Contact contact)
         {
+            _contactRepository.RemoveContact(contact);
         }
     }
 }

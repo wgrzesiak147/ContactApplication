@@ -214,8 +214,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ExampleService.cs" />
-    <Compile Include="Services\IExampleService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -284,6 +282,16 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContactApplication.Database\ContactApplication.Database.csproj">
+      <Project>{175b7a26-65e6-46dc-a575-7c6f52f142d4}</Project>
+      <Name>ContactApplication.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContactApplication.Interfaces\ContactApplication.Interfaces.csproj">
+      <Project>{68e99aa6-71e9-401e-8c8d-3007ed001a85}</Project>
+      <Name>ContactApplication.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
