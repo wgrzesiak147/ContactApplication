@@ -12,5 +12,6 @@ namespace ContactApplication.Remote.Interfaces
         IEnumerable<ContactDto> Read();
         void Add(ContactDto contact);
         void Remove(ContactDto contact);
+        void Edit(ContactDto contactDto);
     }
 }

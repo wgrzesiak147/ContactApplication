@@ -16,7 +16,7 @@
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="First Name: "></TextBlock>
-                <TextBox Text="{Binding FirstName}" Grid.Column="1" Width="200"></TextBox>
+                <TextBox Text="{Binding Contact.FirstName}" Grid.Column="1" Width="200"></TextBox>
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -24,7 +24,7 @@
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Lasts Name: "></TextBlock>
-                <TextBox Text="{Binding LastName}" Grid.Column="1" Width="200"></TextBox>
+                <TextBox Text="{Binding Contact.LastName}" Grid.Column="1" Width="200"></TextBox>
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -32,7 +32,7 @@
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Birth Date: "></TextBlock>
-                <DatePicker SelectedDate="{Binding BirthDate}" Grid.Column="1" Width="200"></DatePicker>
+                <DatePicker SelectedDate="{Binding Contact.DateOfBirth}" Grid.Column="1" Width="200"></DatePicker>
             </Grid>
             <Button Content="Save" Command="{Binding SaveCommand}"></Button>
         </StackPanel>

@@ -25,6 +25,7 @@ namespace ContactApplication.Controllers
         {
             return _contactRepository.GetContacts().Select(c => new ContactDto()
             {
+                Id = c.Id,
                 FirstName = c.FirstName,
                 LastName = c.LastName,
                 DateOfBirth = c.DateOfBirth,
@@ -34,21 +35,15 @@ namespace ContactApplication.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]ContactDto contact)
+        public void Post([FromBody] Contact contact)
         {
-            _contactRepository.AddContact(new Contact()
-            {
-                FirstName = contact.FirstName,
-                LastName = contact.LastName,
-                DateOfBirth = contact.DateOfBirth,
-                ListOfPhoneNumbers = contact.ListOfPhoneNumbers?.ToList(),
-                ListOfEmails = contact.ListOfEmails?.ToList(),
-            });
+            _contactRepository.AddContact(contact);
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public void Put([FromBody] Contact contact)
         {
+            _contactRepository.UpdateContact(contact);
         }
 
         // DELETE api/<controller>/5

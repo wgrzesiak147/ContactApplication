@@ -7,8 +7,11 @@ namespace ContactApplication.Database.Repository
     {
         IEnumerable<Contact> GetContacts();
 
+        Contact GetContactById(int id);
+
         void AddContact(Contact contact);
 
         void RemoveContact(Contact contact);
+        void UpdateContact(Contact contact);
     }
 }

@@ -71,7 +71,9 @@
     </ApplicationDefinition>
     <Compile Include="Navigation\NavigationController.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ViewModels\AddContactPageViewModel.cs" />
+    <Compile Include="ViewModels\ContactPages\AddContactPageViewModel.cs" />
+    <Compile Include="ViewModels\ContactPages\EditContactPageViewModel.cs" />
+    <Compile Include="ViewModels\ContactPages\ContactPageViewModelBase.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ContactModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using ContactApplication.Application.Navigation;
+using ContactApplication.Application.ViewModels.ContactPages;
 using ContactApplication.Application.Views;
 using ContactApplication.Interfaces.Model;
 using ContactApplication.Remote.Interfaces;
@@ -22,15 +24,43 @@ namespace ContactApplication.Application.ViewModels
 
         private IContactService _contactService { get; set; }
 
-        public MainPageViewModel(Navigation.NavigationController navigationController)
+        public MainPageViewModel(NavigationController navigationController)
         {
             _contactService = new ContactService();
             _navigationController = navigationController;
-            this.AddContactCommand = new RelayCommand(AddContact);
-            this.LoadContactsCommand = new RelayCommand(LoadContacts);
+            AddContactCommand = new RelayCommand(AddContact);
+            RemoveContactCommand = new RelayCommand(RemoveContact);
+            LoadContactsCommand = new RelayCommand(LoadContacts);
+            EditContactCommand = new RelayCommand(EditContact);
 
             Contacts = new ObservableCollection<ContactModel>();
+        }
 
+        private void EditContact()
+        {
+            _navigationController.CurrentPage = new AddContactPage(new EditContactPageViewModel(_navigationController, SelectedContact));
+        }
+
+        public ICommand RemoveContactCommand { get; set; }
+
+        private void RemoveContact()
+        {
+            if (SelectedContact == null)
+            {
+                MessageBox.Show("Select Contact to remove");
+                return;
+            }
+            _contactService.Remove(new ContactDto()
+            {
+                Id = SelectedContact.Id,
+                DateOfBirth = SelectedContact.DateOfBirth,
+                FirstName = SelectedContact.FirstName,
+                LastName = SelectedContact.LastName,
+                ListOfEmails = SelectedContact.ListOfEmails,
+                ListOfPhoneNumbers = SelectedContact.ListOfPhoneNumbers
+            });
+
+            LoadContacts();
         }
 
         private void LoadContacts()
@@ -42,6 +72,7 @@ namespace ContactApplication.Application.ViewModels
             {
                 Contacts.Add(new ContactModel()
                 {
+                    Id = contact.Id,
                     DateOfBirth = contact.DateOfBirth,
                     FirstName = contact.FirstName,
                     LastName = contact.LastName,
@@ -55,11 +86,13 @@ namespace ContactApplication.Application.ViewModels
 
         public ICommand LoadContactsCommand { get; set; }
 
-        public ICommand AddContactCommand { get; private set; }
+        public ICommand AddContactCommand { get; set; }
+
+        public ICommand EditContactCommand { get; set; }
 
         public void AddContact()
         {
-            _navigationController.CurrentPage = new AddContactPage(_navigationController);
+            _navigationController.CurrentPage = new AddContactPage(new AddContactPageViewModel(_navigationController));
         }
     }
 }

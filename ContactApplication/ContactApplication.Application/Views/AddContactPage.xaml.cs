@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ContactApplication.Application.ViewModels;
+using ContactApplication.Application.ViewModels.ContactPages;
 
 namespace ContactApplication.Application.Views
 {
@@ -21,9 +22,9 @@ namespace ContactApplication.Application.Views
     /// </summary>
     public partial class AddContactPage : Page
     {
-        public AddContactPage(Navigation.NavigationController _navigationController)
+        public AddContactPage(ContactPageViewModelBase viewModel)
         {
-            DataContext = new AddContactPageViewModel(_navigationController);
+            DataContext = viewModel;
             InitializeComponent();
         }
     }
