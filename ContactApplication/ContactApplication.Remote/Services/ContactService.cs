@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
+using System.Threading.Tasks;
 using ContactApplication.Interfaces.Model;
 using ContactApplication.Remote.Interfaces;
 using Newtonsoft.Json;
@@ -14,36 +11,34 @@ namespace ContactApplication.Remote.Services
 {
     public class ContactService : IContactService
     {
-        private string _apiUrl = "http://localhost:63346/api/contact";
-
         protected readonly HttpClient HttpClient = new HttpClient();
+        private readonly string _apiUrl = "http://localhost:63346/api/contact";
 
 
-        public IEnumerable<ContactDto> Read()
+        public async Task<IEnumerable<ContactDto>> ReadAsync()
         {
-            var stream = HttpClient.GetStringAsync(_apiUrl).Result;
+            var stream = await HttpClient.GetStringAsync(_apiUrl);
             return JsonConvert.DeserializeObject<List<ContactDto>>(stream);
         }
 
-        public void Add(ContactDto contact)
+        public async void AddAsync(ContactDto contact)
         {
-            var response = HttpClient.PostAsync(_apiUrl, GetSerializedContent(contact)).Result;
+            var response = await HttpClient.PostAsync(_apiUrl, GetSerializedContent(contact));
         }
 
-        public void Remove(ContactDto contact)
+        public async void RemoveAsync(ContactDto contact)
         {
             var result =
-                HttpClient.SendAsync(
-                        new HttpRequestMessage(HttpMethod.Delete, _apiUrl)
-                        {
-                            Content = GetSerializedContent(contact)
-                        })
-                    .Result;
+                await HttpClient.SendAsync(
+                    new HttpRequestMessage(HttpMethod.Delete, _apiUrl)
+                    {
+                        Content = GetSerializedContent(contact)
+                    });
         }
 
-        public void Edit(ContactDto contactDto)
+        public async void EditAsync(ContactDto contactDto)
         {
-            HttpClient.PutAsync(_apiUrl, GetSerializedContent(contactDto));
+            await HttpClient.PutAsync(_apiUrl, GetSerializedContent(contactDto));
         }
 
         private HttpContent GetSerializedContent(ContactDto dto)

@@ -18,7 +18,7 @@ namespace ContactApplication.Application.ViewModels.ContactPages
 
         public override void Save()
         {
-            ContactService.Edit(new ContactDto()
+            ContactService.EditAsync(new ContactDto()
             {
                 Id = Contact.Id,
                 FirstName = Contact.FirstName,

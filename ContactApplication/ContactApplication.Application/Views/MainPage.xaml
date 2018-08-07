@@ -10,10 +10,17 @@
 
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="top" HorizontalAlignment="Stretch">
+
+            <TextBox TextChanged="TextBoxBase_OnTextChanged" Width="100" Margin="0 30 0 0"  Text="{Binding SearchQuery, Mode=TwoWay}"></TextBox>
             <Grid Height="auto">
-                <DataGrid IsReadOnly="True" Margin="20" HorizontalAlignment="Center" AutoGenerateColumns="False" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact}" MaxHeight="100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="119*"/>
+                    <ColumnDefinition Width="57*"/>
+                    <ColumnDefinition Width="124*"/>
+                </Grid.ColumnDefinitions>
+                <DataGrid IsReadOnly="True" Margin="20,20,20,19.6" HorizontalAlignment="Center" AutoGenerateColumns="False" ItemsSource="{Binding FilteredContacts}" SelectedItem="{Binding SelectedContact}" MaxHeight="100" Grid.ColumnSpan="3">
                     <DataGrid.InputBindings>
-                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditCommand}"></MouseBinding>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditContactCommand}"></MouseBinding>
                     </DataGrid.InputBindings>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
@@ -24,7 +31,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
-            <Button Content="Load" Command="{Binding LoadContactsCommand}"></Button>
+            <Button Content="Refresh" Command="{Binding LoadContactsCommand}"></Button>
             <Button Content="Add" Command="{Binding AddContactCommand}"></Button>
             <Button Content="Edit" Command="{Binding EditContactCommand}"></Button>
             <Button Content="Remove" Command="{Binding RemoveContactCommand}"></Button>

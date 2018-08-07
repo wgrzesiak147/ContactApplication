@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
+using ContactApplication.Application.Mappers;
 using ContactApplication.Application.Navigation;
 using ContactApplication.Application.ViewModels.ContactPages;
 using ContactApplication.Application.Views;
-using ContactApplication.Interfaces.Model;
 using ContactApplication.Remote.Interfaces;
 using ContactApplication.Remote.Services;
 using GalaSoft.MvvmLight;
@@ -18,30 +16,67 @@ namespace ContactApplication.Application.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        public ObservableCollection<ContactModel> Contacts { get; set; }
-
-        private NavigationController _navigationController { get; set; }
-
-        private IContactService _contactService { get; set; }
+        private string _searchQuery;
 
         public MainPageViewModel(NavigationController navigationController)
         {
-            _contactService = new ContactService();
-            _navigationController = navigationController;
+            ContactService = new ContactService();
+            NavigationController = navigationController;
             AddContactCommand = new RelayCommand(AddContact);
             RemoveContactCommand = new RelayCommand(RemoveContact);
             LoadContactsCommand = new RelayCommand(LoadContacts);
             EditContactCommand = new RelayCommand(EditContact);
-
             Contacts = new ObservableCollection<ContactModel>();
+            LoadContacts();
+        }
+
+        public ObservableCollection<ContactModel> Contacts { get; set; }
+
+        public ICollectionView FilteredContacts
+        {
+            get
+            {
+                var source = CollectionViewSource.GetDefaultView(Contacts);
+                source.Filter = p => Filter((ContactModel) p);
+                return source;
+            }
+        }
+
+        private NavigationController NavigationController { get; }
+
+        private IContactService ContactService { get; }
+
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                _searchQuery = value;
+                FilteredContacts.Refresh();
+            }
+        }
+
+        public ContactModel SelectedContact { get; set; }
+
+        public ICommand LoadContactsCommand { get; set; }
+
+        public ICommand RemoveContactCommand { get; set; }
+
+        public ICommand AddContactCommand { get; set; }
+
+        public ICommand EditContactCommand { get; set; }
+
+        public bool Filter(ContactModel model)
+        {
+            if (string.IsNullOrEmpty(SearchQuery)) return true;
+            return model.FirstName.ToLower().StartsWith(SearchQuery.ToLower());
         }
 
         private void EditContact()
         {
-            _navigationController.CurrentPage = new AddContactPage(new EditContactPageViewModel(_navigationController, SelectedContact));
+            NavigationController.CurrentPage =
+                new AddContactPage(new EditContactPageViewModel(NavigationController, SelectedContact));
         }
-
-        public ICommand RemoveContactCommand { get; set; }
 
         private void RemoveContact()
         {
@@ -50,49 +85,26 @@ namespace ContactApplication.Application.ViewModels
                 MessageBox.Show("Select Contact to remove");
                 return;
             }
-            _contactService.Remove(new ContactDto()
-            {
-                Id = SelectedContact.Id,
-                DateOfBirth = SelectedContact.DateOfBirth,
-                FirstName = SelectedContact.FirstName,
-                LastName = SelectedContact.LastName,
-                ListOfEmails = SelectedContact.ListOfEmails,
-                ListOfPhoneNumbers = SelectedContact.ListOfPhoneNumbers
-            });
+            ContactService.RemoveAsync(ContactModelMapper.Map(SelectedContact));
 
             LoadContacts();
         }
 
-        private void LoadContacts()
+        private async void LoadContacts()
         {
             Contacts.Clear();
 
-            var contacts = _contactService.Read();
+            var contacts = await ContactService.ReadAsync();
+
             foreach (var contact in contacts)
-            {
-                Contacts.Add(new ContactModel()
-                {
-                    Id = contact.Id,
-                    DateOfBirth = contact.DateOfBirth,
-                    FirstName = contact.FirstName,
-                    LastName = contact.LastName,
-                    ListOfEmails = contact.ListOfEmails,
-                    ListOfPhoneNumbers = contact.ListOfPhoneNumbers
-                });
-            }
+                Contacts.Add(ContactModelMapper.Map(contact));
+
+            FilteredContacts.Refresh();
         }
-
-        public ContactModel SelectedContact { get; set; }
-
-        public ICommand LoadContactsCommand { get; set; }
-
-        public ICommand AddContactCommand { get; set; }
-
-        public ICommand EditContactCommand { get; set; }
 
         public void AddContact()
         {
-            _navigationController.CurrentPage = new AddContactPage(new AddContactPageViewModel(_navigationController));
+            NavigationController.CurrentPage = new AddContactPage(new AddContactPageViewModel(NavigationController));
         }
     }
 }

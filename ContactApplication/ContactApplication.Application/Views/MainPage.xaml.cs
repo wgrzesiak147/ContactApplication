@@ -27,5 +27,11 @@ namespace ContactApplication.Application.Views
             DataContext = new MainPageViewModel(navigationController);
             InitializeComponent();
         }
+
+        private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var binding = ((TextBox)sender).GetBindingExpression(TextBox.TextProperty);
+            binding.UpdateSource();
+        }
     }
 }

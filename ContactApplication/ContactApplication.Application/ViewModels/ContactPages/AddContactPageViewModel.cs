@@ -8,7 +8,7 @@ namespace ContactApplication.Application.ViewModels.ContactPages
     {
         public override void Save()
         {
-            ContactService.Add(new ContactDto()
+            ContactService.AddAsync(new ContactDto()
             {
                 FirstName = Contact.FirstName,
                 LastName = Contact.LastName,
