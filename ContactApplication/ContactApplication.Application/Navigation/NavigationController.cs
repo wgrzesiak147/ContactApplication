@@ -5,7 +5,7 @@ using ContactApplication.Application.Annotations;
 
 namespace ContactApplication.Application.Navigation
 {
-    public class NavigationController : INotifyPropertyChanged
+    public class NavigationController : INavigationController, INotifyPropertyChanged
     {
         private Page _currentPage;
 

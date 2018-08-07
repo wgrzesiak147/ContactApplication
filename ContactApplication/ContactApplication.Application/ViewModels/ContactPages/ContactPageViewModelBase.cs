@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Windows.Controls;
 using System.Windows.Input;
 using ContactApplication.Application.Navigation;
+using ContactApplication.Application.Views;
 using ContactApplication.Remote.Interfaces;
 using ContactApplication.Remote.Services;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -11,18 +13,29 @@ namespace ContactApplication.Application.ViewModels.ContactPages
     {
         protected IContactService ContactService { get; set; }
 
+        public IMainPage MainPage { get; set; }
+
         public ContactModel Contact { get; set; }
 
-        protected NavigationController NavigationController { get; set; }
+        protected INavigationController NavigationController { get; set; }
 
-        protected ContactPageViewModelBase(NavigationController navigationController)
+        protected ContactPageViewModelBase(IMainPage mainPage, INavigationController navigationController, IContactService contactService)
         {
+            MainPage = mainPage;
+            ContactService = contactService;
             NavigationController = navigationController;
             Contact = new ContactModel {DateOfBirth = DateTime.Today};
             SaveCommand = new RelayCommand(Save);
+            ExitCommand = new RelayCommand(Exit);
+        }
+
+        private void Exit()
+        {
+            NavigationController.CurrentPage = (Page)MainPage;
         }
 
         public ICommand SaveCommand { get; set; }
+        public ICommand ExitCommand { get; set; }
 
         public abstract void Save();
     }

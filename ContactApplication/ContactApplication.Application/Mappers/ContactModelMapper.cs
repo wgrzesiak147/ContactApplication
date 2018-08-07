@@ -1,4 +1,6 @@
-﻿using ContactApplication.Application.ViewModels;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using ContactApplication.Application.ViewModels;
 using ContactApplication.Remote.Model;
 
 namespace ContactApplication.Application.Mappers
@@ -13,8 +15,8 @@ namespace ContactApplication.Application.Mappers
                 DateOfBirth = dto.DateOfBirth,
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
-                ListOfEmails = dto.ListOfEmails,
-                ListOfPhoneNumbers = dto.ListOfPhoneNumbers
+                ListOfEmails = dto.ListOfEmails !=null ? new ObservableCollection<string>(dto.ListOfEmails): new ObservableCollection<string>(),
+                ListOfPhoneNumbers = dto.ListOfPhoneNumbers !=null ? new ObservableCollection<string>(dto.ListOfPhoneNumbers): new ObservableCollection<string>()
             };
         }
 
@@ -26,8 +28,8 @@ namespace ContactApplication.Application.Mappers
                 DateOfBirth = dto.DateOfBirth,
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
-                ListOfEmails = dto.ListOfEmails,
-                ListOfPhoneNumbers = dto.ListOfPhoneNumbers
+                ListOfEmails = dto.ListOfEmails.ToList(),
+                ListOfPhoneNumbers = dto.ListOfPhoneNumbers.ToList()
             };
         }
     }

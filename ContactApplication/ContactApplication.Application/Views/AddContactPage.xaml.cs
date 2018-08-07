@@ -20,11 +20,10 @@ namespace ContactApplication.Application.Views
     /// <summary>
     /// Interaction logic for AddContactPage.xaml
     /// </summary>
-    public partial class AddContactPage : Page
+    public partial class AddContactPage : Page, IAddContactPage
     {
-        public AddContactPage(ContactPageViewModelBase viewModel)
+        public AddContactPage()
         {
-            DataContext = viewModel;
             InitializeComponent();
         }
     }

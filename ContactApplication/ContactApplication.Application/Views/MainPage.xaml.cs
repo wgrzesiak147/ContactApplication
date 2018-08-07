@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,17 +15,20 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ContactApplication.Application.Navigation;
 using ContactApplication.Application.ViewModels;
+using Ninject;
 
 namespace ContactApplication.Application.Views
 {
     /// <summary>
     /// Interaction logic for MainPage.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class MainPage : Page, IMainPage
     {
-        public MainPage(NavigationController navigationController)
+
+        public MainPage(IMainPageViewModel mainPageViewModel)
         {
-            DataContext = new MainPageViewModel(navigationController);
+            DataContext = mainPageViewModel;
+            mainPageViewModel.MainPage = this;
             InitializeComponent();
         }
 

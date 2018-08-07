@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using ContactApplication.Application.Mappers;
@@ -8,20 +9,21 @@ using ContactApplication.Application.Navigation;
 using ContactApplication.Application.ViewModels.ContactPages;
 using ContactApplication.Application.Views;
 using ContactApplication.Remote.Interfaces;
-using ContactApplication.Remote.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
 namespace ContactApplication.Application.ViewModels
 {
-    public class MainPageViewModel : ViewModelBase
+    public class MainPageViewModel : ViewModelBase, IMainPageViewModel
     {
         private string _searchQuery;
 
-        public MainPageViewModel(NavigationController navigationController)
+        public MainPageViewModel(INavigationController navigationController, IContactService contactService,
+            IAddContactPage addContactPage)
         {
-            ContactService = new ContactService(new HttpJsonClientFactory());
+            ContactService = contactService;
             NavigationController = navigationController;
+            AddContactPage = addContactPage;
             AddContactCommand = new RelayCommand(AddContact);
             RemoveContactCommand = new RelayCommand(RemoveContact);
             LoadContactsCommand = new RelayCommand(LoadContacts);
@@ -42,9 +44,13 @@ namespace ContactApplication.Application.ViewModels
             }
         }
 
-        private NavigationController NavigationController { get; }
+        private INavigationController NavigationController { get; }
 
-        private IContactService ContactService { get; set; }
+        private IContactService ContactService { get; }
+
+        public IAddContactPage AddContactPage { get; set; }
+
+        public IMainPage MainPage { get; set; }
 
         public string SearchQuery
         {
@@ -74,8 +80,10 @@ namespace ContactApplication.Application.ViewModels
 
         private void EditContact()
         {
-            NavigationController.CurrentPage =
-                new AddContactPage(new EditContactPageViewModel(NavigationController, SelectedContact));
+            var addContactPage = (Page) AddContactPage;
+            addContactPage.DataContext =
+                new EditContactPageViewModel(MainPage, NavigationController, ContactService, SelectedContact);
+            NavigationController.CurrentPage = addContactPage;
         }
 
         private void RemoveContact()
@@ -103,7 +111,9 @@ namespace ContactApplication.Application.ViewModels
 
         public void AddContact()
         {
-            NavigationController.CurrentPage = new AddContactPage(new AddContactPageViewModel(NavigationController));
+            var addContactPage = (Page) AddContactPage;
+            addContactPage.DataContext = new AddContactPageViewModel(MainPage, NavigationController, ContactService);
+            NavigationController.CurrentPage = addContactPage;
         }
     }
 }

@@ -1,16 +1,20 @@
-﻿using ContactApplication.Application.Navigation;
+﻿using System.Reflection;
+using System.Windows.Controls;
+using ContactApplication.Application.Navigation;
 using ContactApplication.Application.Views;
+using Ninject;
 
 namespace ContactApplication.Application.ViewModels
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel: IMainWindowViewModel
     {
-        public MainWindowViewModel()
+        public MainWindowViewModel(INavigationController navigationController, IMainPage mainPage)
         {
-            NavigationController = new NavigationController();
-            NavigationController.CurrentPage = new MainPage(NavigationController);
+            NavigationController = navigationController;
+            navigationController.CurrentPage = (Page)mainPage;
+
         }
 
-        public NavigationController NavigationController { get; set; }
+        public INavigationController NavigationController { get; set; }
     }
 }

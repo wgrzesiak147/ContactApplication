@@ -11,7 +11,15 @@
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="top" HorizontalAlignment="Stretch">
 
-            <TextBox TextChanged="TextBoxBase_OnTextChanged" Width="100" Margin="0 30 0 0"  Text="{Binding SearchQuery, Mode=TwoWay}"></TextBox>
+            <Grid Margin="10 30 10 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="first Name: "></TextBlock>
+                <TextBox TextChanged="TextBoxBase_OnTextChanged" Grid.Column="1" Text="{Binding SearchQuery, Mode=TwoWay}"></TextBox>
+            </Grid>
+
             <Grid Height="auto">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="119*"/>
