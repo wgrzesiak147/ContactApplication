@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace ContactApplication.Application.ViewModels
 {
@@ -24,7 +22,7 @@ namespace ContactApplication.Application.ViewModels
             get
             {
                 if (ListOfEmails == null) return "";
-                return String.Join(",", ListOfEmails);
+                return string.Join(",", ListOfEmails);
             }
         }
 
@@ -33,7 +31,7 @@ namespace ContactApplication.Application.ViewModels
             get
             {
                 if (ListOfPhoneNumbers == null) return "";
-                return String.Join(",", ListOfPhoneNumbers);
+                return string.Join(",", ListOfPhoneNumbers);
             }
         }
     }

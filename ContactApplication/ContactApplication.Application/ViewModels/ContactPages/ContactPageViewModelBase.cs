@@ -9,7 +9,7 @@ namespace ContactApplication.Application.ViewModels.ContactPages
 {
     public abstract class ContactPageViewModelBase
     {
-        protected IContactService ContactService = new ContactService();
+        protected IContactService ContactService { get; set; }
 
         public ContactModel Contact { get; set; }
 
@@ -18,8 +18,7 @@ namespace ContactApplication.Application.ViewModels.ContactPages
         protected ContactPageViewModelBase(NavigationController navigationController)
         {
             NavigationController = navigationController;
-            Contact = new ContactModel();
-            Contact.DateOfBirth = DateTime.Today;
+            Contact = new ContactModel {DateOfBirth = DateTime.Today};
             SaveCommand = new RelayCommand(Save);
         }
 

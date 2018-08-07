@@ -5,6 +5,6 @@
              xmlns:viewModels="clr-namespace:ContactApplication.Application.ViewModels"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-        <viewModels:ViewModelLocator x:Key="Locator" />
+
     </Application.Resources>
 </Application>

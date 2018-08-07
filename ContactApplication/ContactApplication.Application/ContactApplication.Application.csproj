@@ -99,7 +99,6 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ContactModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Page Include="Views\AddContactPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -155,10 +154,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ContactApplication.Interfaces\ContactApplication.Interfaces.csproj">
-      <Project>{68E99AA6-71E9-401E-8C8D-3007ED001A85}</Project>
-      <Name>ContactApplication.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ContactApplication.Remote\ContactApplication.Remote.csproj">
       <Project>{47da769c-c39d-4833-9095-5be21bd54767}</Project>
       <Name>ContactApplication.Remote</Name>

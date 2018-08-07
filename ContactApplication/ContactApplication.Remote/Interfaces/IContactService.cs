@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ContactApplication.Interfaces.Model;
+using ContactApplication.Remote.Model;
 
 namespace ContactApplication.Remote.Interfaces
 {
     public interface IContactService
     {
         Task<IEnumerable<ContactDto>> ReadAsync();
-        void AddAsync(ContactDto contact);
-        void RemoveAsync(ContactDto contact);
-        void EditAsync(ContactDto contactDto);
+        Task AddAsync(ContactDto contact);
+        Task RemoveAsync(ContactDto contact);
+        Task EditAsync(ContactDto contactDto);
     }
 }

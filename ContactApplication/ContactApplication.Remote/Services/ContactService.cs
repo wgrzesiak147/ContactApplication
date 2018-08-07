@@ -1,19 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using ContactApplication.Interfaces.Model;
 using ContactApplication.Remote.Interfaces;
+using ContactApplication.Remote.Model;
 using Newtonsoft.Json;
 
 namespace ContactApplication.Remote.Services
 {
     public class ContactService : IContactService
     {
-        protected readonly HttpClient HttpClient = new HttpClient();
         private readonly string _apiUrl = "http://localhost:63346/api/contact";
 
+
+        public ContactService(IHttpClientFactory httpClientFactory)
+        {
+            HttpClientFactory = httpClientFactory;
+            HttpClient = HttpClientFactory.Create();
+        }
+
+        private IHttpClientFactory HttpClientFactory { get; }
+
+        protected HttpClient HttpClient { get; set; }
 
         public async Task<IEnumerable<ContactDto>> ReadAsync()
         {
@@ -21,22 +29,21 @@ namespace ContactApplication.Remote.Services
             return JsonConvert.DeserializeObject<List<ContactDto>>(stream);
         }
 
-        public async void AddAsync(ContactDto contact)
+        public async Task AddAsync(ContactDto contact)
         {
-            var response = await HttpClient.PostAsync(_apiUrl, GetSerializedContent(contact));
+            await HttpClient.PostAsync(_apiUrl, GetSerializedContent(contact));
         }
 
-        public async void RemoveAsync(ContactDto contact)
+        public async Task RemoveAsync(ContactDto contact)
         {
-            var result =
-                await HttpClient.SendAsync(
-                    new HttpRequestMessage(HttpMethod.Delete, _apiUrl)
-                    {
-                        Content = GetSerializedContent(contact)
-                    });
+            await HttpClient.SendAsync(
+                new HttpRequestMessage(HttpMethod.Delete, _apiUrl)
+                {
+                    Content = GetSerializedContent(contact)
+                });
         }
 
-        public async void EditAsync(ContactDto contactDto)
+        public async Task EditAsync(ContactDto contactDto)
         {
             await HttpClient.PutAsync(_apiUrl, GetSerializedContent(contactDto));
         }
@@ -46,7 +53,6 @@ namespace ContactApplication.Remote.Services
             var myContent = JsonConvert.SerializeObject(dto);
             var buffer = Encoding.UTF8.GetBytes(myContent);
             var byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             return byteContent;
         }
     }

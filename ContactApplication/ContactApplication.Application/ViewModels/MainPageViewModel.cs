@@ -20,7 +20,7 @@ namespace ContactApplication.Application.ViewModels
 
         public MainPageViewModel(NavigationController navigationController)
         {
-            ContactService = new ContactService();
+            ContactService = new ContactService(new HttpJsonClientFactory());
             NavigationController = navigationController;
             AddContactCommand = new RelayCommand(AddContact);
             RemoveContactCommand = new RelayCommand(RemoveContact);
@@ -44,7 +44,7 @@ namespace ContactApplication.Application.ViewModels
 
         private NavigationController NavigationController { get; }
 
-        private IContactService ContactService { get; }
+        private IContactService ContactService { get; set; }
 
         public string SearchQuery
         {
@@ -95,7 +95,6 @@ namespace ContactApplication.Application.ViewModels
             Contacts.Clear();
 
             var contacts = await ContactService.ReadAsync();
-
             foreach (var contact in contacts)
                 Contacts.Add(ContactModelMapper.Map(contact));
 

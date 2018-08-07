@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using ContactApplication.Database.Model;
 
 namespace ContactApplication.Database.Repository
 {
     public class ContactRepository : IContactRepository
     {
-        private ApplicationDbContext _dbContext = new ApplicationDbContext();
+        private readonly ApplicationDbContext _dbContext = new ApplicationDbContext();
 
         public IEnumerable<Contact> GetContacts()
         {
             return _dbContext.Contacts;
-        }
-
-        public Contact GetContactById(int id)
-        {
-            return _dbContext.Contacts.FirstOrDefault(x => x.Id == id);
         }
 
         public void AddContact(Contact contact)

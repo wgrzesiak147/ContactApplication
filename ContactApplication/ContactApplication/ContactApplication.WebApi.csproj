@@ -288,10 +288,6 @@
       <Project>{175b7a26-65e6-46dc-a575-7c6f52f142d4}</Project>
       <Name>ContactApplication.Database</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ContactApplication.Interfaces\ContactApplication.Interfaces.csproj">
-      <Project>{68e99aa6-71e9-401e-8c8d-3007ed001a85}</Project>
-      <Name>ContactApplication.Interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
