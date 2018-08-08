@@ -3,8 +3,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using ContactApplication.Interfaces.Model;
 using ContactApplication.Remote.Interfaces;
+using ContactApplication.Remote.Model;
 using Newtonsoft.Json;
 
 namespace ContactApplication.Remote.Services

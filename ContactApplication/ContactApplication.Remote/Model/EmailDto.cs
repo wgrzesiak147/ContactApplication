@@ -1,13 +1,12 @@
 ﻿using System.Data.Entity;
 
-namespace ContactApplication.Interfaces.Model
+namespace ContactApplication.Remote.Model
 {
-    public class PhoneDto
+    public class EmailDto
     {
         public int Id { get; set; }
 
-
-        public string Number { get; set; }
+        public string Address { get; set; }
 
         public EntityState State { get; set; }
     }

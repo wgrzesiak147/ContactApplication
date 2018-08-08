@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ContactApplication.Interfaces.Model
+namespace ContactApplication.Remote.Model
 {
     public class ContactDto
     {

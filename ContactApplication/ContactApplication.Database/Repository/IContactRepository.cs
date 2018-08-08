@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using ContactApplication.Database.Model;
-using ContactApplication.Interfaces.Model;
 
 namespace ContactApplication.Database.Repository
 {
@@ -8,9 +7,10 @@ namespace ContactApplication.Database.Repository
     {
         IEnumerable<Contact> GetContacts();
 
-        void AddContact(ContactDto contact);
+        void AddContact(Contact contact);
 
-        void RemoveContact(ContactDto contact);
-        void UpdateContact(ContactDto contact);
+        void RemoveContact(Contact contact);
+
+        void UpdateContact(Contact contact);
     }
 }

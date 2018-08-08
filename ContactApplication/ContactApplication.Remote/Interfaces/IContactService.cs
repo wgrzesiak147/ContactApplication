@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ContactApplication.Interfaces.Model;
+using ContactApplication.Remote.Model;
 
 namespace ContactApplication.Remote.Interfaces
 {

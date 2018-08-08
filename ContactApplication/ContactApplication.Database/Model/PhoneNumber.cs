@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContactApplication.Database.Model
 {
@@ -16,5 +12,7 @@ namespace ContactApplication.Database.Model
 
         public string Number { get; set; }
 
+        [NotMapped]
+        public EntityState State { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using ContactApplication.Application.ViewModels;
-using ContactApplication.Interfaces.Model;
+using ContactApplication.Remote.Model;
 
 namespace ContactApplication.Application.Mappers
 {
