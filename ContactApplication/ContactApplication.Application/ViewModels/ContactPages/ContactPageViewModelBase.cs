@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using ContactApplication.Application.Navigation;
+using ContactApplication.Application.Services;
 using ContactApplication.Application.Views;
 using ContactApplication.Remote.Interfaces;
 using ContactApplication.Remote.Services;
@@ -12,6 +13,7 @@ namespace ContactApplication.Application.ViewModels.ContactPages
     public abstract class ContactPageViewModelBase
     {
         protected IContactService ContactService { get; set; }
+        protected INotificationService NotificationService { get; set; }
 
         public IMainPage MainPage { get; set; }
 
@@ -19,10 +21,11 @@ namespace ContactApplication.Application.ViewModels.ContactPages
 
         protected INavigationController NavigationController { get; set; }
 
-        protected ContactPageViewModelBase(IMainPage mainPage, INavigationController navigationController, IContactService contactService)
+        protected ContactPageViewModelBase(IMainPage mainPage, INavigationController navigationController, IContactService contactService, INotificationService notificationService)
         {
             MainPage = mainPage;
             ContactService = contactService;
+            NotificationService = notificationService;
             NavigationController = navigationController;
             Contact = new ContactModel {DateOfBirth = DateTime.Today};
             SaveCommand = new RelayCommand(Save);

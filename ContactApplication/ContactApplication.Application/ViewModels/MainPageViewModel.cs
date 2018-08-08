@@ -106,7 +106,7 @@ namespace ContactApplication.Application.ViewModels
         {
             var addContactPage = (Page) AddContactPage;
             addContactPage.DataContext =
-                new EditContactPageViewModel(MainPage, NavigationController, ContactService, SelectedContact);
+                new EditContactPageViewModel(MainPage, NavigationController, ContactService,NotificationService, SelectedContact);
             NavigationController.CurrentPage = addContactPage;
         }
 
@@ -125,7 +125,7 @@ namespace ContactApplication.Application.ViewModels
         public void AddContact()
         {
             var addContactPage = (Page) AddContactPage;
-            addContactPage.DataContext = new AddContactPageViewModel(MainPage, NavigationController, ContactService);
+            addContactPage.DataContext = new AddContactPageViewModel(MainPage, NavigationController, ContactService, NotificationService);
             NavigationController.CurrentPage = addContactPage;
         }
     }

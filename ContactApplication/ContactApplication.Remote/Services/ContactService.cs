@@ -32,7 +32,7 @@ namespace ContactApplication.Remote.Services
 
         public async Task AddAsync(ContactDto contact)
         {
-            await HttpClient.PostAsync(_apiUrl, GetSerializedContent(contact));
+           await HttpClient.PostAsync(_apiUrl, GetSerializedContent(contact));
         }
 
         public async Task RemoveAsync(ContactDto contact)

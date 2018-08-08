@@ -63,7 +63,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Phone Numbers: " />
 
-                        <TextBox Text="{Binding Contact.NewPhoneNumber}" Grid.Column="1" />
+                        <TextBox PreviewTextInput="TextBox_OnPreviewTextInput" Text="{Binding Contact.NewPhoneNumber}" Grid.Column="1" />
                         <Button Content="Add New" Command="{Binding Contact.AddPhoneNumberCommand}"  Grid.Column="2" />
                     </Grid>
 
