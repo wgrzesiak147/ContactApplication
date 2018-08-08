@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using ContactApplication.Database.Mappers;
 using ContactApplication.Database.Model;
+using ContactApplication.Interfaces.Model;
 
 namespace ContactApplication.Database.Repository
 {
@@ -10,26 +13,48 @@ namespace ContactApplication.Database.Repository
 
         public IEnumerable<Contact> GetContacts()
         {
-            return _dbContext.Contacts;
+            return _dbContext.Contacts.Include(x => x.Emails).Include(x => x.PhoneNumbers);
         }
 
-        public void AddContact(Contact contact)
+        public void AddContact(ContactDto contact)
         {
-            _dbContext.Contacts.Add(contact);
+            _dbContext.Contacts.Add(ContactDtoMapper.Map(contact));
             _dbContext.SaveChanges();
         }
 
-        public void RemoveContact(Contact contact)
+        public void RemoveContact(ContactDto contact)
         {
-            _dbContext.Contacts.Attach(contact);
-            _dbContext.Contacts.Remove(contact);
+            var cont = ContactDtoMapper.Map(contact);
+
+            _dbContext.Contacts.Attach(cont);
+            _dbContext.Contacts.Remove(cont);
             _dbContext.SaveChanges();
         }
 
-        public void UpdateContact(Contact contact)
+        public void UpdateContact(ContactDto contact)
         {
-            _dbContext.Contacts.Attach(contact);
-            _dbContext.Entry(contact).State = EntityState.Modified;
+            var cont = ContactDtoMapper.Map(contact);
+            _dbContext.Contacts.Attach(cont);
+            _dbContext.Entry(cont).State = EntityState.Modified;
+
+            foreach (var email in contact.Emails)
+            {
+                if (email.State == EntityState.Added)
+                {
+                    var emailEntity = new Email {Id = email.Id, Address = email.Address};
+                    cont.Emails.Add(emailEntity);
+                }
+            }
+
+            foreach (var phoneNumber in contact.PhoneNumbers)
+            {
+                if (phoneNumber.State == EntityState.Added)
+                {
+                    var phoneNumberEntity = new PhoneNumber() {Id = phoneNumber.Id, Number = phoneNumber.Number};
+                    cont.PhoneNumbers.Add(phoneNumberEntity);
+                }
+            }
+
             _dbContext.SaveChanges();
         }
     }

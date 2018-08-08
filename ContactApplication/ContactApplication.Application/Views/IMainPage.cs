@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ContactApplication.Application.ViewModels;
 
 namespace ContactApplication.Application.Views
 {
     public interface IMainPage
     {
-        object DataContext { get; set; }
+        IMainPageViewModel ViewModel { get; set; }
     }
 }

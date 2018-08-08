@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
+using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 
@@ -8,32 +9,19 @@ namespace ContactApplication.Application.ViewModels
 {
     public class ContactModel
     {
-
-        public ICommand AddEmailCommand { get; set; }
-        public ICommand AddPhoneCommand { get; set; }
-
-        public string Email { get; set; }
-        public string Phone { get; set; }
-
         public ContactModel()
         {
             AddEmailCommand = new RelayCommand(AddEmail);
-            AddPhoneCommand = new RelayCommand(AddPhone);
-            ListOfPhoneNumbers = new ObservableCollection<string>();
-            ListOfEmails = new ObservableCollection<string>();
+            AddPhoneNumberCommand = new RelayCommand(AddPhoneNumber);
+            ListOfPhoneNumbers = new ObservableCollection<PhoneNumberModel>();
+            ListOfEmails = new ObservableCollection<EmailModel>();
         }
 
-        private void AddPhone()
-        {
-            if(string.IsNullOrEmpty(Phone)) return;
-            ListOfEmails.Add(Phone);
-        }
+        public ICommand AddEmailCommand { get; set; }
+        public ICommand AddPhoneNumberCommand { get; set; }
 
-        private void AddEmail()
-        {
-            if(string.IsNullOrEmpty(Email)) return;
-            ListOfEmails.Add(Email);
-        }
+        public string NewEmail { get; set; }
+        public string NewPhoneNumber { get; set; }
 
         public int Id { get; set; }
 
@@ -43,16 +31,16 @@ namespace ContactApplication.Application.ViewModels
 
         public DateTime DateOfBirth { get; set; }
 
-        public ObservableCollection<string> ListOfEmails { get; set; }
+        public ObservableCollection<EmailModel> ListOfEmails { get; set; }
 
-        public ObservableCollection<string> ListOfPhoneNumbers { get; set; }
+        public ObservableCollection<PhoneNumberModel> ListOfPhoneNumbers { get; set; }
 
         public string EmailString
         {
             get
             {
                 if (ListOfEmails == null) return "";
-                return string.Join(",", ListOfEmails);
+                return string.Join(",", ListOfEmails.Select(x => x.Address));
             }
         }
 
@@ -61,8 +49,22 @@ namespace ContactApplication.Application.ViewModels
             get
             {
                 if (ListOfPhoneNumbers == null) return "";
-                return string.Join(",", ListOfPhoneNumbers);
+                return string.Join(",", ListOfPhoneNumbers.Select(x => x.Number));
             }
+        }
+
+        private void AddPhoneNumber()
+        {
+            if (string.IsNullOrEmpty(NewPhoneNumber)) return;
+            ListOfPhoneNumbers.Add(new PhoneNumberModel {Number = NewPhoneNumber, State = EntityState.Added});
+            NewPhoneNumber = "";
+        }
+
+        private void AddEmail()
+        {
+            if (string.IsNullOrEmpty(NewEmail)) return;
+            ListOfEmails.Add(new EmailModel {Address = NewEmail, State = EntityState.Added});
+            NewEmail = "";
         }
     }
 }

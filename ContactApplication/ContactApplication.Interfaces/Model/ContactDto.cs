@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ContactApplication.Remote.Model
+namespace ContactApplication.Interfaces.Model
 {
     public class ContactDto
     {
@@ -13,8 +13,8 @@ namespace ContactApplication.Remote.Model
 
         public DateTime DateOfBirth { get; set; }
 
-        public List<string> ListOfEmails { get; set; }
+        public List<EmailDto> Emails { get; set; }
 
-        public List<string> ListOfPhoneNumbers { get; set; }
+        public List<PhoneDto> PhoneNumbers { get; set; }
     }
 }

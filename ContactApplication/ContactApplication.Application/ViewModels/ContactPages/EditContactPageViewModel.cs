@@ -20,6 +20,7 @@ namespace ContactApplication.Application.ViewModels.ContactPages
         {
             await ContactService.EditAsync(ContactModelMapper.Map(Contact));
             NavigationController.CurrentPage = (Page) MainPage;
+            MainPage.ViewModel.LoadContacts();
         }
     }
 }

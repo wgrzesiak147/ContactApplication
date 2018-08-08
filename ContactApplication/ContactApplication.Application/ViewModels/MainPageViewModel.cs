@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -86,26 +87,33 @@ namespace ContactApplication.Application.ViewModels
             NavigationController.CurrentPage = addContactPage;
         }
 
-        private void RemoveContact()
+        private async void RemoveContact()
         {
             if (SelectedContact == null)
             {
                 MessageBox.Show("Select Contact to remove");
                 return;
             }
-            ContactService.RemoveAsync(ContactModelMapper.Map(SelectedContact));
+            await ContactService.RemoveAsync(ContactModelMapper.Map(SelectedContact));
 
             LoadContacts();
         }
 
-        private async void LoadContacts()
+        public async void LoadContacts()
         {
             Contacts.Clear();
 
-            var contacts = await ContactService.ReadAsync();
-            foreach (var contact in contacts)
-                Contacts.Add(ContactModelMapper.Map(contact));
-
+            try
+            {
+                var contacts = await ContactService.ReadAsync();
+                foreach (var contact in contacts)
+                    Contacts.Add(ContactModelMapper.Map(contact));
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Api error");
+            }
+            
             FilteredContacts.Refresh();
         }
 

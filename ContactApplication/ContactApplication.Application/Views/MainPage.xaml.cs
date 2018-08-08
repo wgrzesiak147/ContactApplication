@@ -27,6 +27,7 @@ namespace ContactApplication.Application.Views
 
         public MainPage(IMainPageViewModel mainPageViewModel)
         {
+            ViewModel = mainPageViewModel;
             DataContext = mainPageViewModel;
             mainPageViewModel.MainPage = this;
             InitializeComponent();
@@ -37,5 +38,7 @@ namespace ContactApplication.Application.Views
             var binding = ((TextBox)sender).GetBindingExpression(TextBox.TextProperty);
             binding.UpdateSource();
         }
+
+        public IMainPageViewModel ViewModel { get; set; }
     }
 }

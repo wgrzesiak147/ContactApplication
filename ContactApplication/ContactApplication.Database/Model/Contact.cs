@@ -17,8 +17,9 @@ namespace ContactApplication.Database.Model
 
         public DateTime DateOfBirth { get; set; }
 
-        public List<string> ListOfEmails { get; set; }
+        public ICollection<Email> Emails { get; set; } 
 
-        public List<string> ListOfPhoneNumbers { get; set; }
+        public ICollection<PhoneNumber> PhoneNumbers { get; set; } 
+
     }
 }

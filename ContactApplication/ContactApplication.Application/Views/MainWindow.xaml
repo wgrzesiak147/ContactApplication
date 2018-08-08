@@ -7,7 +7,7 @@
         xmlns:viewModels="clr-namespace:ContactApplication.Application.ViewModels"
         xmlns:views="clr-namespace:ContactApplication.Application.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="500" WindowStartupLocation="CenterScreen" SizeToContent="Width">
+        Title="MainWindow" Height="350" Width="500" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight">
     <Grid>
         <Frame Grid.Column="1" Content="{Binding NavigationController.CurrentPage}" HorizontalAlignment="Left" VerticalAlignment="Top" NavigationUIVisibility="Hidden"/>
     </Grid>

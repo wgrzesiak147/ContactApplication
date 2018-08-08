@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using ContactApplication.Interfaces.Model;
 using ContactApplication.Remote.Interfaces;
-using ContactApplication.Remote.Model;
 using Newtonsoft.Json;
 
 namespace ContactApplication.Remote.Services
@@ -53,6 +54,7 @@ namespace ContactApplication.Remote.Services
             var myContent = JsonConvert.SerializeObject(dto);
             var buffer = Encoding.UTF8.GetBytes(myContent);
             var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             return byteContent;
         }
     }

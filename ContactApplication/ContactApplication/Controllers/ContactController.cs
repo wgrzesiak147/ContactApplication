@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
+using ContactApplication.Database.Mappers;
 using ContactApplication.Database.Model;
 using ContactApplication.Database.Repository;
+using ContactApplication.Interfaces.Model;
 
 namespace ContactApplication.Controllers
 {
@@ -15,22 +18,23 @@ namespace ContactApplication.Controllers
         private IContactRepository ContactRepository { get; }
 
         [HttpGet]
-        public IEnumerable<Contact> Get()
+        public IEnumerable<ContactDto> Get()
         {
-            return ContactRepository.GetContacts();
+            var contacts =  ContactRepository.GetContacts().Select(x=> ContactDtoMapper.Map(x)).ToList();
+            return contacts;
         }
 
-        public void Post([FromBody] Contact contact)
+        public void Post([FromBody] ContactDto contact)
         {
             ContactRepository.AddContact(contact);
         }
 
-        public void Put([FromBody] Contact contact)
+        public void Put([FromBody] ContactDto contact)
         {
             ContactRepository.UpdateContact(contact);
         }
 
-        public void Delete(Contact contact)
+        public void Delete(ContactDto contact)
         {
             ContactRepository.RemoveContact(contact);
         }

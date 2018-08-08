@@ -8,7 +8,7 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="AddContactPage">
 
-    <Grid>
+    <Grid Margin="25">
         <StackPanel Orientation="Vertical">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -45,15 +45,32 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Emails: " />
 
-                        <TextBox Text="{Binding Contact.Email}" Grid.Column="1" />
+                        <TextBox Text="{Binding Contact.NewEmail}" Grid.Column="1" />
                         <Button Content="Add New" Command="{Binding Contact.AddEmailCommand}"  Grid.Column="2" />
                     </Grid>
 
-                    <ListBox Height="50" ItemsSource="{Binding Contact.ListOfEmails}" />
+                    <ListBox DisplayMemberPath="Address" Height="50" ItemsSource="{Binding Contact.ListOfEmails}" />
                 </StackPanel>
 
             </GroupBox>
+            <GroupBox Tag="Phone Numbers" Padding="15">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Phone Numbers: " />
 
+                        <TextBox Text="{Binding Contact.NewPhoneNumber}" Grid.Column="1" />
+                        <Button Content="Add New" Command="{Binding Contact.AddPhoneNumberCommand}"  Grid.Column="2" />
+                    </Grid>
+
+                    <ListBox DisplayMemberPath="Number" Height="50" ItemsSource="{Binding Contact.ListOfPhoneNumbers}" />
+                </StackPanel>
+
+            </GroupBox>
 
             <Button Content="Save" Command="{Binding SaveCommand}" />
             <Button Content="Exit" Command="{Binding ExitCommand}" />

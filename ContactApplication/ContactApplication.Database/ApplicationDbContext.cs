@@ -14,6 +14,8 @@ namespace ContactApplication.Database
         }
 
         public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<Email> Emails { get; set; }
+        public virtual DbSet<PhoneNumber> PhoneNumbers { get; set; }
     }
 
 }

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApplication.Database
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApplication.Remote", "ContactApplication.Remote\ContactApplication.Remote.csproj", "{47DA769C-C39D-4833-9095-5BE21BD54767}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApplication.Interfaces", "ContactApplication.Interfaces\ContactApplication.Interfaces.csproj", "{68E99AA6-71E9-401E-8C8D-3007ED001A85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{47DA769C-C39D-4833-9095-5BE21BD54767}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47DA769C-C39D-4833-9095-5BE21BD54767}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47DA769C-C39D-4833-9095-5BE21BD54767}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68E99AA6-71E9-401E-8C8D-3007ED001A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68E99AA6-71E9-401E-8C8D-3007ED001A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68E99AA6-71E9-401E-8C8D-3007ED001A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68E99AA6-71E9-401E-8C8D-3007ED001A85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
