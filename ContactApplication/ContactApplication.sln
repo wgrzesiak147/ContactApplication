@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApplication.WebApi", "ContactApplication\ContactApplication.WebApi.csproj", "{ECBCB0C6-5674-4820-AFE8-4C84A6AB7E5D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApplication.WebApi", "ContactApplication.WebApi\ContactApplication.WebApi.csproj", "{ECBCB0C6-5674-4820-AFE8-4C84A6AB7E5D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApplication.Application", "ContactApplication.Application\ContactApplication.Application.csproj", "{99B9E0CD-5C85-47F4-A557-AC732D14E979}"
 EndProject

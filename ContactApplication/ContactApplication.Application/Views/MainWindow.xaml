@@ -8,7 +8,7 @@
         xmlns:views="clr-namespace:ContactApplication.Application.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="500" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight">
-    <Grid>
+    <Grid Margin="25">
         <Frame Grid.Column="1" Content="{Binding NavigationController.CurrentPage}" HorizontalAlignment="Left" VerticalAlignment="Top" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
