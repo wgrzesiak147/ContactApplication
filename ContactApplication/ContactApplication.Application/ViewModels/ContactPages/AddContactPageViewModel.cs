@@ -17,11 +17,6 @@ namespace ContactApplication.Application.ViewModels.ContactPages
 
         public override async void Save()
         {
-            if (string.IsNullOrEmpty(Contact.FirstName) || string.IsNullOrEmpty(Contact.FirstName))
-            {
-                NotificationService.ShowMessage("Fill First Name and Last Name");
-                return;
-            }
             await ContactService.AddAsync(ContactModelMapper.Map(Contact));
             NavigationController.CurrentPage = (Page) MainPage;
             MainPage.ViewModel.LoadContacts();

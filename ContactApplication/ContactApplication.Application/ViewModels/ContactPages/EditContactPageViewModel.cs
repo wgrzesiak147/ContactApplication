@@ -12,18 +12,13 @@ namespace ContactApplication.Application.ViewModels.ContactPages
         public EditContactPageViewModel(IMainPage mainPage, INavigationController navigationController,
             IContactService contactService, INotificationService notificationService,
             ContactModel model) : base(
-            mainPage, navigationController, contactService,notificationService)
+            mainPage, navigationController, contactService, notificationService)
         {
             Contact = model;
         }
 
         public override async void Save()
         {
-            if (string.IsNullOrEmpty(Contact.FirstName) || string.IsNullOrEmpty(Contact.FirstName))
-            {
-                NotificationService.ShowMessage("Fill First Name and Last Name");
-                return;
-            }
             await ContactService.EditAsync(ContactModelMapper.Map(Contact));
             NavigationController.CurrentPage = (Page) MainPage;
             MainPage.ViewModel.LoadContacts();
