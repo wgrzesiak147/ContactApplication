@@ -1,4 +1,5 @@
 ﻿using ContactApplication.Application.Navigation;
+using ContactApplication.Application.Services;
 using ContactApplication.Application.ViewModels;
 using ContactApplication.Application.ViewModels.ContactPages;
 using ContactApplication.Application.Views;
@@ -21,6 +22,7 @@ namespace ContactApplication.Application
             Bind<IMainPageViewModel>().To<MainPageViewModel>();
             Bind<IContactService>().To<ContactService>();
             Bind<IHttpClientFactory>().To<HttpJsonClientFactory>();
+            Bind<INotificationService>().To<NotificationService>();
         }
     }
 }

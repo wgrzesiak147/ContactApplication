@@ -100,6 +100,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Services\INotificationService.cs" />
+    <Compile Include="Services\NotificationService.cs" />
     <Compile Include="ViewModels\EmailModel.cs" />
     <Compile Include="Mappers\ContactModelMapper.cs" />
     <Compile Include="Module.cs" />

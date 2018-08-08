@@ -7,6 +7,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using ContactApplication.Application.Mappers;
 using ContactApplication.Application.Navigation;
+using ContactApplication.Application.Services;
 using ContactApplication.Application.ViewModels.ContactPages;
 using ContactApplication.Application.Views;
 using ContactApplication.Remote.Interfaces;
@@ -19,9 +20,11 @@ namespace ContactApplication.Application.ViewModels
     {
         private string _searchQuery;
 
-        public MainPageViewModel(INavigationController navigationController, IContactService contactService,
+        public MainPageViewModel(INavigationController navigationController, INotificationService notificationService,
+            IContactService contactService,
             IAddContactPage addContactPage)
         {
+            NotificationService = notificationService;
             ContactService = contactService;
             NavigationController = navigationController;
             AddContactPage = addContactPage;
@@ -49,9 +52,9 @@ namespace ContactApplication.Application.ViewModels
 
         private IContactService ContactService { get; }
 
-        public IAddContactPage AddContactPage { get; set; }
+        private INotificationService NotificationService { get; }
 
-        public IMainPage MainPage { get; set; }
+        public IAddContactPage AddContactPage { get; set; }
 
         public string SearchQuery
         {
@@ -73,6 +76,26 @@ namespace ContactApplication.Application.ViewModels
 
         public ICommand EditContactCommand { get; set; }
 
+        public IMainPage MainPage { get; set; }
+
+        public async void LoadContacts()
+        {
+            Contacts.Clear();
+
+            try
+            {
+                var contacts = await ContactService.ReadAsync();
+                foreach (var contact in contacts)
+                    Contacts.Add(ContactModelMapper.Map(contact));
+            }
+            catch (Exception)
+            {
+                NotificationService.ShowMessage("error during connecting to web api, try again");
+            }
+
+            FilteredContacts.Refresh();
+        }
+
         public bool Filter(ContactModel model)
         {
             if (string.IsNullOrEmpty(SearchQuery)) return true;
@@ -91,30 +114,12 @@ namespace ContactApplication.Application.ViewModels
         {
             if (SelectedContact == null)
             {
-                MessageBox.Show("Select Contact to remove");
+                NotificationService.ShowMessage("Select contact to remove");
                 return;
             }
             await ContactService.RemoveAsync(ContactModelMapper.Map(SelectedContact));
 
             LoadContacts();
-        }
-
-        public async void LoadContacts()
-        {
-            Contacts.Clear();
-
-            try
-            {
-                var contacts = await ContactService.ReadAsync();
-                foreach (var contact in contacts)
-                    Contacts.Add(ContactModelMapper.Map(contact));
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Api error");
-            }
-            
-            FilteredContacts.Refresh();
         }
 
         public void AddContact()
