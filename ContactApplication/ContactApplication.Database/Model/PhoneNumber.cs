@@ -9,7 +9,6 @@ namespace ContactApplication.Database.Model
         [Key]
         public int Id { get; set; }
 
-
         public string Number { get; set; }
 
         [NotMapped]

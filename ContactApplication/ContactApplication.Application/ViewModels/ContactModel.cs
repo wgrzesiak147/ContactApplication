@@ -18,9 +18,11 @@ namespace ContactApplication.Application.ViewModels
         }
 
         public ICommand AddEmailCommand { get; set; }
+
         public ICommand AddPhoneNumberCommand { get; set; }
 
         public string NewEmail { get; set; }
+
         public string NewPhoneNumber { get; set; }
 
         public int Id { get; set; }

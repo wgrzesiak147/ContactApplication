@@ -6,7 +6,6 @@ namespace ContactApplication.Remote.Model
     {
         public int Id { get; set; }
 
-
         public string Number { get; set; }
 
         public EntityState State { get; set; }

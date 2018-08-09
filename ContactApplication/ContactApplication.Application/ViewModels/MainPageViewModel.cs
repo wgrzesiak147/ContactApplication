@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -106,7 +105,8 @@ namespace ContactApplication.Application.ViewModels
         {
             var addContactPage = (Page) AddContactPage;
             addContactPage.DataContext =
-                new EditContactPageViewModel(MainPage, NavigationController, ContactService,NotificationService, SelectedContact);
+                new EditContactPageViewModel(MainPage, NavigationController, ContactService, NotificationService,
+                    SelectedContact);
             NavigationController.CurrentPage = addContactPage;
         }
 
@@ -125,7 +125,8 @@ namespace ContactApplication.Application.ViewModels
         public void AddContact()
         {
             var addContactPage = (Page) AddContactPage;
-            addContactPage.DataContext = new AddContactPageViewModel(MainPage, NavigationController, ContactService, NotificationService);
+            addContactPage.DataContext =
+                new AddContactPageViewModel(MainPage, NavigationController, ContactService, NotificationService);
             NavigationController.CurrentPage = addContactPage;
         }
     }

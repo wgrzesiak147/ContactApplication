@@ -1,11 +1,8 @@
+using System.Data.Entity;
 using ContactApplication.Database.Model;
 
 namespace ContactApplication.Database
 {
-    using System;
-    using System.Data.Entity;
-    using System.Linq;
-
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext()
@@ -17,5 +14,4 @@ namespace ContactApplication.Database
         public virtual DbSet<Email> Emails { get; set; }
         public virtual DbSet<PhoneNumber> PhoneNumbers { get; set; }
     }
-
 }
